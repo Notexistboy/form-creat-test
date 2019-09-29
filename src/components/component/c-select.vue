@@ -2,8 +2,8 @@
   <div ref="dropdown" style="display:inline-block">
     <el-select v-model="value" :multiple="multiple" :placeholder="placeholder" @change="handleChange">
       <el-option
-        v-for="item in itemList"
-        :key="item.value"
+        v-for="(item, index) in itemList"
+        :key="index"
         :label="item.name"
         :value="item.value">
       </el-option>

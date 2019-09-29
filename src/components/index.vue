@@ -2,12 +2,11 @@
   <div>
     <el-button @click="showDialog">添加输入框</el-button>
     <form-create ref="fc" v-model="fApi" :rule="rule" :option="option"></form-create>
-    <el-dialog title="外层 Dialog" :visible.sync="dialogState">
-      <cSelect ref="cSelect" placeholder="等级" @changeOper="chooseSelect" :itemList="itemList"/>
-      指定输入框名称：
-      <el-input v-model="comName"/>
-      <el-button @click="showDialog()">取 消</el-button>
-      <el-button type="primary" @click="showDialog(); getRule('input',comName)">确定</el-button>
+    <el-dialog title="组件添加" :visible.sync="dialogState">
+      <cSelect ref="cSelect" placeholder="选择需要的组件" @changeOper="chooseSelect" :itemList="itemList"/>
+      <router-view></router-view>
+      <el-button @click="closeDialog()">取 消</el-button>
+      <el-button type="primary" @click="confirmDialog()">确定</el-button>
     </el-dialog>
   </div>
 </template>
@@ -35,6 +34,7 @@
         dialogState: false,
         option:{},
         fApi:{},
+
       }
     },
     components:{
@@ -43,7 +43,7 @@
     methods: {
       chooseSelect(data) {
         debugger
-        
+        this.$router.push({ name: data})
       },
       getRule(type,comName){
         debugger
@@ -525,7 +525,13 @@
           }],
         },
         ]
-      }
+      },
+      closeDialog() {
+        this.$history.back()
+      },
+      confirmDialog() {
+        this.$history.back()
+      },
     }
   }
 </script>
